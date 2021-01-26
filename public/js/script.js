@@ -1,12 +1,19 @@
 
 const socket = io();
 const btnPressed = document.getElementById("broo");
+
+let userNames = [];
 // const { userJoin, getCurrentUser, getRoomSize } = require("./utils/users"); ==> TIL you can't do this because frontend
 
 const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
+  
 });
-
+userNames.push(username);
+console.log(username);
+if(username == undefined || username=== '' || userNames.includes(username)){
+  console.log("OH NO");
+}
 function processUserName(nameOfVideo){
   console.log(nameOfVideo);
   let video = nameOfVideo.split("=")
@@ -15,7 +22,9 @@ function processUserName(nameOfVideo){
 
 
 console.log("SHAMBLES");
-console.log(processUserName(room));
+let videoName =  processUserName(room);
+
+
 
 console.log(room);
 
@@ -47,7 +56,7 @@ function onYouTubePlayerAPIReady() {
   player = new YT.Player("ytplayer", {
     height: "360",
     width: "640",
-    videoId: processUserName(room),
+    videoId: videoName,
     events: {
       onReady: onPlayerReady,
       onStateChange: onPlayerStateChange,
@@ -55,7 +64,8 @@ function onYouTubePlayerAPIReady() {
   });
 }
 
-socket.emit("joinRoom", { username, room });
+
+socket.emit("joinRoom", { username, room, videoName });
 
 socket.emit("hostPausedVideo", { username, room });
 

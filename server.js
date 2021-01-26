@@ -17,18 +17,19 @@ server.listen(PORT, () => console.log(`Server running on Port ${PORT}`));
 //Run when a client connects
 let host = null;
 io.on("connection", (socket) => {
-  socket.on("joinRoom", ({ username, room }) => {
-
-    let booleanCheck = getRoomSize("JavaScript") === 0 ? true : false;
-    const user = userJoin(socket.id, username, room, booleanCheck);
+  socket.on("joinRoom", ({ username, room, videoName }) => {
+    console.log(videoName);
+    let booleanCheck = getRoomSize(videoName) === 0 ? true : false;
+    const user = userJoin(socket.id, username, videoName, booleanCheck);
     if (booleanCheck) {
       host = user;
       console.log("HOST CREATED with username:  " + host.username);
     }
-    socket.emit("message", `Welcome to ${host}'s Room`);
+    socket.emit("message", `Welcome to ${host.username}'s Room`);
     socket.join(user.room);
-    socket.broadcast.to(user.room).emit("message", `has joined the chat`);
+    socket.broadcast.to(user.room).emit("message", `${username} has joined the chat`);
   });
+
 
   //todo fix this e.g fully implement 
   socket.on("disconnect", () => {
