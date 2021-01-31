@@ -20,41 +20,30 @@
     <script src="app.js"></script>
     <title>Get It Done</title>
   </head>
+
+  <script>
+    function search(query){
+        if(query.slice(0, 7) == "http://"){
+            window.location.href = query
+        }
+        else{
+            window.location.href = "https://www.google.com/search?q=" + query
+        }
+    }
+</script>
   <body>
-    <!-- <nav class="navigation">
-      <div class="navigation__hamburger">
-        <div class="navigation__line"></div>
-        <div class="navigation__line"></div>
-        <div class="navigation__line"></div>
-      </div>
-      <ul class="navigation__links">
-        <li class="navigation__links__indv">
-          <a href="hostingpage.html" class="navigation__page">About</a>
-        </li>
-        <li class="navigation__links__indv">
-          <a href="#" class="navigation__page">Contact</a>
-        </li>
-        <li class="navigation__links__indv">
-          <a href="#" class="navigation__page">Projects</a>
-        </li>
-        <li class="navigation__links__indv">
-          <a href="#" class="navigation__page">Projects</a>
-        </li>
-        <li class="navigation__links__indv">
-          <a href="#" class="navigation__page">Projects</a>
-        </li>
-      </ul>
-    </nav> -->
+
+    
 
     <section class="landing">
       <div class="row">
         <div class="col-1-of-2">
           <div class="working">
-            <h2 class="heading u-margin-bottom-small">
+            <h2 class="heading u-margin-bottom-medium">
               Watch YouTube videos with friends and family online together!
             </h2>
             <div class="btn btn--green push">
-              <a href="#form_section"> Get Started </a>
+              <a href="#form_section" class="get_started_text"> Get Started </a>
              </div>
           </div>
   
@@ -76,99 +65,51 @@
 
    <section class="form__section" id="form_section">
     <div class="container" id="container">
-      <div class="form-container sign-up-container">
-        <form action="hostingpage.html">
-          <h1>Create Account</h1>
-          <div class="social-container">
-            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-          <span>or use your email for registration</span>
-          <input type="text" placeholder="Name" />
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <button>Sign Up</button>
-        </form>
-      </div>
+  
       <div class="form-container sign-in-container">
-        <form action="hostingpage.html">
+        <form action="hostingpage.html" id="form">
           <h1>Create a Room</h1>
-          <span>Simply add a name and YouTube link to watch</span>
-          <!--	<form action="hostingpage.html">
-					<div class="form-control">
-						<label for="username">Username</label>
-						<input
-							type="text"
-							name="username"
-							id="username"
-							placeholder="Enter username..."
-							required
-						/>
-					</div> -->
+          <span>Simply add your name and YouTube link to watch</span>
+      
           <label for="username">Username</label>
-          <input type="text" name="username" id="username" placeholder="Room name" required/>
+          <input type="text" name="username" id="username" placeholder="Host name" required/>
           <label for="room">Room</label>
           <input type="text" name="room" id="room" placeholder="YouTube video" required />
+          <input type="hidden" name="roomID" id="roomID" value="123">
+
           <!-- <a href="#">Forgot your password?</a> possibly make this into a popup or gif or something -->  
-          <button>Host Room</button>
+          <button type ="submit" class="btnpressed" id="btnPressed">Host Room</button>
         </form>
       </div>
-      <div class="overlay-container">
-        <div class="overlay">
-      
-          <div class="overlay-panel overlay-right">
-            <h1>Join a room!</h1>
-           <span>Simply add a name and YouTube link to watch</span>
-          
-          <input type="text" placeholder="Room name" required/>
-          <input type="text" placeholder="YouTube video" required />
-          <!-- <a href="#">Forgot your password?</a> possibly make this into a popup or gif or something -->  
-          <button>Host Room</button>
-            <button type="submit" class="ghost" id="signUp">Join Room</button>
+
+     <div class="form-container sign-up-container">
+      <form id="form">
+              
+             <h1>Join a Room</h1>
+          <span>Add your name and the link to the room!</span>
+       
+          <label for="username">Username</label>
+          <input type="text" name="username" id="usernameOfJoiner" placeholder="Your name" required/>
+          <label for="room">Room</label>
+          <input type="text" name="room" id="roomToJoin" placeholder="Host Link" required />
+          <button type ="submit" id="joinPreExitingRoom">Join A Room</button>
+
+
+           </form>
           </div>
         </div>
-      </div>
+ 
     </div>
     
     <footer>
       
     </footer>
    </section>
-    <!-- <div class="join-container">
-			<header class="join-header">
-				<h1><i class="fas fa-smile"></i> ChatCord</h1>
-			</header>
-			<main class="join-main">
-				<form action="hostingpage.html">
-					<div class="form-control">
-						<label for="username">Username</label>
-						<input
-							type="text"
-							name="username"
-							id="username"
-							placeholder="Enter username..."
-							required
-						/>
-					</div>
-					<div class="form-control">
-						<label for="room">Room</label>
-						<select name="room" id="room">
-							<option value="JavaScript">JavaScript</option>
-							<option value="Python">Python</option>
-							<option value="PHP">PHP</option>
-							<option value="C#">C#</option>
-							<option value="Ruby">Ruby</option>
-							<option value="Java">Java</option>
-						</select>
-					</div>
-					<button type="submit" class="btn">Join Chat</button>
-				</form>
-			</main>
-		</div> -->
+    
 
     <footer></footer>
+    <script src="js/app.js"></script>
 
-    <script type="text/javascript" src="app.js"></script>
+
   </body>
 </html>

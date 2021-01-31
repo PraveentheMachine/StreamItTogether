@@ -1,33 +1,41 @@
 
 const socket = io();
 const btnPressed = document.getElementById("broo");
+let textFieldVideo= document.querySelector('.added');
+let userNames = [];
+const element = document.querySelector('form');
+
+
+
 // const { userJoin, getCurrentUser, getRoomSize } = require("./utils/users"); ==> TIL you can't do this because frontend
 
-const { username, room } = Qs.parse(location.search, {
+const { username, room, roomID } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
 
+
+
+userNames.push(username);
+console.log(username);
+if(username == undefined || username=== '' || userNames.includes(username)){
+  console.log("ERROR");
+}
 function processUserName(nameOfVideo){
   console.log(nameOfVideo);
-  let video = nameOfVideo.split("=")
+  let video = nameOfVideo.split("=");
+
   return video[1];
 }
+let videoName = processUserName(room);
+console.log(videoName);
 
 
-console.log("SHAMBLES");
-console.log(processUserName(room));
+
+  
+
 
 console.log(room);
 
-//Purely for testing at the moment
-btnPressed.addEventListener("click", function () {
-  //Join Chatroom
-  //Getting message text
-  const msg = `${counter} lets go`;
-  counter++;
-  outputMessage(message);
-  socket.emit("chatMessage", msg);
-});
 
 function output(message) {
   const div = document.createElement("div");
@@ -45,9 +53,9 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player;
 function onYouTubePlayerAPIReady() {
   player = new YT.Player("ytplayer", {
-    height: "360",
-    width: "640",
-    videoId: processUserName(room),
+    height: "720",
+    width: "1280",
+    videoId: videoName,
     events: {
       onReady: onPlayerReady,
       onStateChange: onPlayerStateChange,
@@ -55,18 +63,15 @@ function onYouTubePlayerAPIReady() {
   });
 }
 
-socket.emit("joinRoom", { username, room });
+
+socket.emit("joinRoom", { username, room, videoName,roomID });
 
 socket.emit("hostPausedVideo", { username, room });
 
 socket.on("message", (message) => {
-  console.log(message);
 });
 
 socket.on("pauseMessage", (msg) => {
-  console.log("MESSAGE RECEIVED");
-  console.log(msg);
-  console.log("SHOOOOW");
   player.pauseVideo();
 });
 
@@ -80,7 +85,7 @@ socket.on("PlayngVideoMsg", (msg) => {
 });
 
 function onPlayerReady(event) {
-  //TLDR do something for this
+  //todo do something for this
 }
 function sendInformation(playerStatus) {
   if (playerStatus == -1) {

@@ -1,15 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
-// .working{
-//   background-color: red;
-//     width: 100%;
-// }
 
-// .working1{
-//   background-color: black;
-//   color: black;
-//   width: 100%;
-
-// }
 .push{
   margin-left: 15rem;
 }
@@ -39,7 +29,6 @@
 
   }
 }
-
 
 
 .form__section {
@@ -78,7 +67,7 @@ a{
 }
 
 .container{
- background: white;
+ background: blue;
  border-radius: 1rem;
  box-shadow: 0 14px 28px rgba(0,0,0, 0.25), 0,10px,10px rgba(0,0,0, 0.22);
  position: relative; //will have aboslute positions within it
@@ -89,7 +78,7 @@ a{
 }
 
 .form-container form{
-background: white;
+// background: black;
 display: flex;
 flex-direction: column;
 padding: 0 5rem;
@@ -100,20 +89,6 @@ align-items: center;
 
 }
 
-.social-container{
- margin: 2rem 0;
-}
-
-.social-container a {
-border: 1px solid #ddd;
-border-radius: 50%;
-display: inline-flex;
-justify-content: center;
-align-items: center;
-margin: 0 5px;
-height: 4rem;
-width: 4rem;
-}
 
 .form-container input{
  background-color: #eee;
@@ -158,42 +133,43 @@ button.ghost{
 }
 
 .sign-in-container{
+  background-color: white;
   left: 0;
   width: 50%;
   z-index: 2;
 }
 .sign-up-container{
- left: 0;
+  background-color: #a29bfe;
+  right: 0;
  width: 50%;
- opacity: 0;
- z-index: 1;
+ z-index: 2;
 }
 
-.overlay-container{
- position: absolute;
- top: 0;
- left: 50%;
- width: 50%;
- height: 100%;
- overflow: hidden;
- transition: transform 0.6s ease-in-out;
- z-index: 100;
-}
+// .overlay-container{
+//  position: absolute;
+//  top: 0;
+//  left: 50%;
+//  width: 50%;
+//  height: 100%;
+//  overflow: hidden;
+//  transition: transform 0.6s ease-in-out;
+//  z-index: 100;
+// }
 
-.overlay{
+// .overlay{
 
-background: #ff416c;
-background: linear-gradient(to right, #ff4b2b, #ff416c) no-repeat 0 0 /cover;
-color: #fff;
-position: relative;
-left: -100%;
-height: 100%;
-width: 200%;
-transform: translateX(0);
-transition: transform 0.6s ease-in-out;
+// background: #ff416c;
+// background: linear-gradient(to right, #ff4b2b, #ff416c) no-repeat 0 0 /cover;
+// color: #fff;
+// position: relative;
+// left: -100%;
+// height: 100%;
+// width: 200%;
+// transform: translateX(0);
+// transition: transform 0.6s ease-in-out;
 
 
-}
+// }
 
 .overlay-panel{
  position: absolute;
@@ -211,6 +187,10 @@ transition: transform 0.6s ease-in-out;
 .overlay-right{
  right: 0;
  transform: translateX(0);
+}
+
+.get_started_text{
+  color: white;
 }
 
 // .form{

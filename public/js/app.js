@@ -1,25 +1,63 @@
-const hamburger = document.querySelector('.navigation__hamburger');
-const navlinks = document.querySelector(".navigation__links");
-const links = document.querySelectorAll(".navigation__links li");
+// const hamburger = document.querySelector('.navigation__hamburger');
+// const navlinks = document.querySelector(".navigation__links");
+// const links = document.querySelectorAll(".navigation__links li");
+
+// let textFieldVideo= document.querySelector('.added');
+
+const submitButton = document.getElementById("btnPressed");
+const videoElement = document.getElementById("room");
+const roomToJoin = document.getElementById("roomToJoin");
+const joinPreExitingRoom = document.getElementById("joinPreExitingRoom");
+const roomID = document.getElementById("roomID");
+ //roomID
+//usernameOfJoiner
+const usernameOfJoiner = document.getElementById("usernameOfJoiner");
+
+console.log(joinPreExitingRoom);
+joinPreExitingRoom.addEventListener('click', event => {
+  console.log(usernameOfJoiner.value);
+    console.log(roomToJoin.value);
+  let prefix = roomToJoin.value.split("username=") ;
+  console.log(prefix);
+  let endOfLink = prefix[1].split("&room=");
+  console.log(endOfLink);
+  let roomSuffix = endOfLink[1];
+  let inputString = prefix[0] + `username=${usernameOfJoiner.value}`+"&room="+roomSuffix;
+  console.log(inputString);
+  event.preventDefault();
+  window.location.replace(inputString)
 
 
-
-hamburger.addEventListener("click", () => {
- console.log("HIT");
-  navlinks.classList.toggle("open");
-  links.forEach(link=>{
-   link.classList.toggle("fade");
-  })
 });
 
-const signUpButton = document.getElementById('signUp');
-const signInButton = document.getElementById('signIn');
-const container = document.getElementById('container');
 
-signUpButton.addEventListener('click', () => {
-	container.classList.add("right-panel-active");
+const element = document.querySelector('form');
+let videoName = ""
+
+element.addEventListener('submit', event => {
+
+
+  videoName.value = videoElement.value + "^^" + makeid(5);
+  // actual logic, e.g. validate the form
+
+  //Making an id for rooms such that we can have different rooms for the same video 
+  roomID.value = makeid(5);
+  roomID.textContent = makeid(5);
+
+
+
 });
 
-signInButton.addEventListener('click', () => {
-	container.classList.remove("right-panel-active");
-});
+function makeid(length) {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+
+
+
