@@ -3,7 +3,6 @@ const signInButton = document.getElementById('signIn');
 const container = document.getElementById('container');
 
 signInButton.addEventListener('click' ,function(){
- console.log("HITTTT");
 })
 signUpButton.addEventListener('click', () => {
 	container.classList.add("right-panel-active");

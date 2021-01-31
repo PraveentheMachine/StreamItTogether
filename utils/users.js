@@ -1,11 +1,12 @@
 const users = [];
 
-function userJoin(id, username, room,isHost){
+function userJoin(id, username, roomID,isHost){
  const user = {
-  id,username,room,isHost
+  id,username,roomID,isHost
  };
  users.push(user);
-
+console.log("USER PUSHED");
+console.log(user.roomID);
  return user;
 }
 
@@ -16,10 +17,11 @@ function getCurrentUser (id){
 
 function getRoomSize(room){
  let counter = 0;
- 
+ console.log(room);
  for(let i = 0; i<users.length;i++){
-  console.log(room);
-  if(users[i].room === room){
+  console.log(room + "    VS   "+ users[i].roomID);
+
+  if(users[i].roomID === room){
    counter++;
   }
  }

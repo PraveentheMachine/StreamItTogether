@@ -12,22 +12,27 @@ const io = socketIO(server);
 app.use(express.static(path.join(__dirname, "public")));
 const PORT = 3000 || process.env.PORT;
 
+
+
+
+
 server.listen(PORT, () => console.log(`Server running on Port ${PORT}`));
 
 //Run when a client connects
 let host = null;
 io.on("connection", (socket) => {
-  socket.on("joinRoom", ({ username, room, videoName }) => {
-    console.log(videoName);
-    let booleanCheck = getRoomSize(videoName) === 0 ? true : false;
-    const user = userJoin(socket.id, username, videoName, booleanCheck);
+  socket.on("joinRoom", ({ username, room, videoName, roomID }) => {
+    // console.log(videoName);
+    // console.log(roomID);
+    let booleanCheck = getRoomSize(roomID) === 0 ? true : false;
+    const user = userJoin(socket.id, username, roomID, booleanCheck);
     if (booleanCheck) {
       host = user;
       console.log("HOST CREATED with username:  " + host.username);
     }
     socket.emit("message", `Welcome to ${host.username}'s Room`);
-    socket.join(user.room);
-    socket.broadcast.to(user.room).emit("message", `${username} has joined the chat`);
+    socket.join(user.roomID);
+    socket.broadcast.to(user.roomID).emit("message", `${username} has joined the chat`);
   });
 
 
@@ -42,7 +47,7 @@ io.on("connection", (socket) => {
     //Need to ensure there is no way of distinguishing between users with the same name
     //implement in USERS class 
     if (player === host.username) {
-      io.to(host.room).emit(
+      io.to(host.roomID).emit(
         "pauseMessage",
         `${host.username} has Stopped the Video`
       ); //all of the clients except
@@ -52,11 +57,11 @@ io.on("connection", (socket) => {
 
   socket.on("PlayingVideo", ({ username, player }) => {
    
-
+    console.log(host.username);
     if (username === host.username) {
-      console.log(`${host} is playing`);
+      console.log(`${host.username} is playing`);
       //Message sending the information regarding player 
-      io.to(host.room).emit("PlayngVideoMsg", { username, player }); 
+      io.to(host.roomID).emit("PlayngVideoMsg", { username, player }); 
     }
   });
 
