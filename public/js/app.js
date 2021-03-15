@@ -9,6 +9,8 @@ const videoElement = document.getElementById("room");
 const roomToJoin = document.getElementById("roomToJoin");
 const joinPreExitingRoom = document.getElementById("joinPreExitingRoom");
 const roomID = document.getElementById("roomID");
+
+
  //roomID
 //usernameOfJoiner
 const usernameOfJoiner = document.getElementById("usernameOfJoiner");
