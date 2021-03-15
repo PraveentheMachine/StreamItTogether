@@ -366,3 +366,11 @@ button.ghost {
   font-size: 2rem;
   color: black;
   text-align: center; }
+
+.shareButton2 {
+  transition: none;
+  color: blanchedalmond;
+  margin: 0;
+  position: absolute;
+  top: 90%;
+  left: 45%; }

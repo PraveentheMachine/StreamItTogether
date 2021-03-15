@@ -2,9 +2,9 @@
 const socket = io();
 const btnPressed = document.getElementById("broo");
 let textFieldVideo= document.querySelector('.added');
+let titleName = document.querySelector("title");
 let userNames = [];
 const element = document.querySelector('form');
-
 
 
 // const { userJoin, getCurrentUser, getRoomSize } = require("./utils/users"); ==> TIL you can't do this because frontend
@@ -13,12 +13,24 @@ const { username, room, roomID } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
 
+titleName.textContent = `Room: ${roomID}`;
+
+const shareButton = document.getElementById("shareLinkButton")
+function copyToClipboard(text) {
+  window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+}
+
+shareButton.addEventListener('click', function(){
+  console.log();
+  copyToClipboard(window.location.href);
+})
 
 
 userNames.push(username);
 console.log(username);
-if(username == undefined || username=== '' || userNames.includes(username)){
-  console.log("ERROR");
+console.log(userNames);
+if(username == undefined || username=== ''){
+  console.log("ERROR in UserNames");
 }
 function processUserName(nameOfVideo){
   console.log(nameOfVideo);
@@ -66,7 +78,7 @@ function onYouTubePlayerAPIReady() {
 
 socket.emit("joinRoom", { username, room, videoName,roomID });
 
-socket.emit("hostPausedVideo", { username, room });
+socket.emit("hostPausedVideo", { username, room,roomID });
 
 socket.on("message", (message) => {
 });
@@ -88,14 +100,16 @@ function onPlayerReady(event) {
   //todo do something for this
 }
 function sendInformation(playerStatus) {
+
+  console.log("WE ARE GETTING HERE");
   if (playerStatus == -1) {
   } else if (playerStatus == 0) {
   } else if (playerStatus == 1) {
     //If we are playing a video synch it up
-    socket.emit("PlayingVideo", { username, player });
+    socket.emit("PlayingVideo", { username, player,roomID });
   } else if (playerStatus == 2) {
     //We are pausing therefore emit, the server handles the fact we only really care about the host
-    socket.emit("StoppedVideo", username);
+    socket.emit("StoppedVideo", username, roomID);
   } else if (playerStatus == 3) {
     // color = "#AA00FF"; // buffering = purple
   } else if (playerStatus == 5) {
@@ -107,6 +121,9 @@ function sendInformation(playerStatus) {
 function onPlayerStateChange(event) {
   sendInformation(event.data);
 }
+
+
+
 
 // onPlayerStateChange();
 
