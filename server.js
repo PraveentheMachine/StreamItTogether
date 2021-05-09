@@ -56,13 +56,13 @@ io.on("connection", (socket) => {
   socket.on("StoppedVideo", (player,roomID) => {
 
 
-    if(player === hostMap.get(roomID)?.username){
+    if(player === hostMap.get(roomID).username){
       console.log("PAUSE MESSAGE BEING SENT");
       console.log(roomToUsersInRoomMap.get(roomID));
     // if (player === host.username) {
       io.to(roomID).emit(
         "pauseMessage",
-        `${hostMap.get(roomID)?.username} has Stopped the Video`
+        `${hostMap.get(roomID).username} has Stopped the Video`
       ); //all of the clients except
    // }
   }
@@ -75,12 +75,12 @@ io.on("connection", (socket) => {
     // console.log(player.username);ç
     // console.log("Playing Video");
     // console.log(username);
-    if(username === hostMap?.get(roomID)?.username){
+    if(username === hostMap.get(roomID).username){
       console.log(roomToUsersInRoomMap.get(roomID));
       console.log("WATCHING");
       // console.log(`${host.username} is playing`);
       //Message sending the information regarding player 
-      io.to(roomID).emit("PlayngVideoMsg", { username, player }); 
+      io.to(roomID).emit("PlayngVideoMsg", { username, player}); 
     }
   });
 
