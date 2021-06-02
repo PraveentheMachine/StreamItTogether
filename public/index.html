@@ -8,12 +8,15 @@
       href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
     <link
       href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
-      rel="stylesheet"
-    />
+      rel="stylesheet"/>
 
     <link rel="stylesheet" href="css/icon-font.css" />
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
 
     <link rel="stylesheet" href="css/style.css" />
     <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
@@ -35,35 +38,27 @@
 
     
 
-    <section class="landing">
-      <div class="row">
-        <div class="col-1-of-2">
-          <div class="working">
-            <h2 class="heading u-margin-bottom-medium">
+    <section class="bg-blue-300 h-screen">
+        <div class="grid grid-cols-1 l:grid-cols-2 pb-32">
+          <div class="">
+            <h2 class="text-2xl pt-12 mt-11 font-extrabold px-8 md:text-5xl md:ml-14 l:px-32 l:pt-64 l:font-extrabold">
               Watch YouTube videos with friends and family online together!
             </h2>
-            <div class="btn btn--green push">
-              <a href="#form_section" class="get_started_text"> Get Started </a>
-             </div>
+            <button class=" 
+            mt-6 ml-44
+            l:ml-48 l:mt-7 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full md\:-left-14">
+              Get Started 
+            </button>
+            </div>
+        <div class="">
+            <img class="object-contain h-2/4 w-full mt-24 sm:h-1\/4" src="img/header__img_2.svg" />
           </div>
-  
-          </div>
-          
-        <div class="col-1-of-2">
-          <div class="working1">
-          <div class="landing__img ">
-            <img src="img/header__img_2.svg" height="440" />
-          </div>
-        </div>
-        </div>
-      </div>
     </section>
 
-    <section class="cards">
-      <div class="row"></div>
-    </section>
+    
 
-   <section class="form__section" id="form_section">
+    <div class="bg-pink-400 h-screen pt-12">
+   <section class="" id="form_section">
     <div class="container" id="container">
   
       <div class="form-container sign-in-container">
@@ -105,6 +100,7 @@
       
     </footer>
    </section>
+  </div>
     
 
     <footer></footer>

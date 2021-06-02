@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node server",
     "compile:sass": "node-sass public/sass/main.scss public/css/style.css -w",
-    "devStart": "nodemon server.js"
-  },
+    "devStart": "nodemon server.js",
+  "build-css": "npx tailwindcss-cli@latest build ./src/styles.css -o public/css/styles.css"  },
   "author": "Praveen Bandarage",
   "license": "ISC",
   "devDependencies": {
@@ -15,6 +15,7 @@
     "nodemon": "^2.0.7"
   },
   "dependencies": {
+    "tailwindcss": "^2.1.2",
     "express": "^4.17.1",
     "socket.io": "^3.1.0",
     "uuid": "^8.3.2"
