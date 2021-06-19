@@ -38,10 +38,10 @@
 
     
 
-    <section class="bg-blue-300 h-screen">
+    <section class="bg-gray-100 h-screen">
       <!--Creating a Grid which houses the button + heading text and -->
         <div class="grid grid-cols-1 md:grid-cols-2 pb-32">
-          <div class="text-center sm:bg-pink-400">
+          <div class="text-center">
             <h2 class="text-4xl font-extrabold pt-12 md:mt-20 md:mb-6 sm:text-4xl sm:pt-12 md:pt-44 l:pt-64 l:text-5xl">
               Watch YouTube videos with friends and family online together!
             </h2>
@@ -57,27 +57,30 @@
 
     
 
-    <div class="bg-pink-400 h-screen pt-12">
+    <div class="min-h-screen">
    <section class="" id="form_section">
-    <div class="container" id="container">
+    <div class="grid grid-cols-1  text-center" id="container">
   
-      <div class="form-container sign-in-container">
+      <div class="form-container sign-in-container bg-pink-400 py-24 px-14">
         <form action="hostingpage.html" id="form">
-          <h1>Create a Room</h1>
+          <h1 class="">Create a Room</h1>
           <span>Simply add your name and YouTube link to watch</span>
-      
-          <label for="username">Username</label>
-          <input type="text" name="username" id="username" placeholder="Host name" required/>
+          <div>
+          <label for="username" class="block text-sm">Username</label>
+          <div>
+          <input type="text" class="w-11/12 border border-gray-300 py-3 px-2" name="username" id="username" placeholder="Host name" required/>
+         </div>
           <label for="room">Room</label>
-          <input type="text" name="room" id="room" placeholder="YouTube video" required />
+          <input type="text" class="w-11/12 border border-gray-300 py-3 px-2" name="room" id="room" placeholder="YouTube video" required />
           <input type="hidden" name="roomID" id="roomID" value="123">
-
+          
           <!-- <a href="#">Forgot your password?</a> possibly make this into a popup or gif or something -->  
           <button type ="submit" class="btnpressed" id="btnPressed">Host Room</button>
+        </div>
         </form>
       </div>
 
-     <div class="form-container sign-up-container">
+     <div class="bg-purple-400">
       <form id="form">
               
              <h1>Join a Room</h1>
@@ -89,10 +92,10 @@
           <input type="text" name="room" id="roomToJoin" placeholder="Host Link" required />
           <button type ="submit" id="joinPreExitingRoom">Join A Room</button>
 
-
+      
            </form>
           </div>
-        </div>
+     
  
     </div>
     
