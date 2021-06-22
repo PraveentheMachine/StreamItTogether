@@ -1,11 +1,14 @@
 
 //
+console.log("YOLO");
+
 const submitButton = document.getElementById("btnPressed");
 const videoElement = document.getElementById("room");
 const roomToJoin = document.getElementById("roomToJoin");
 const joinPreExitingRoom = document.getElementById("joinPreExitingRoom");
 const roomID = document.getElementById("roomID");
 const usernameOfJoiner = document.getElementById("usernameOfJoiner");
+
 
 console.log(joinPreExitingRoom);
 joinPreExitingRoom.addEventListener('click', event => {
