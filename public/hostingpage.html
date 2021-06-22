@@ -7,25 +7,27 @@
  <title>Web Hosting Part</title>
  <link rel="stylesheet" href="styles.css">
 
+
 <script src="script.js"></script>
 
  </style>
 </head>
-<body>
- <section class="header">
-  <h2 class="">
-   Watch YouTube videos with friends and family online together!
- </h2> </section>
+<body class="bg-pink-400 md:bg-purple-500 l: bg-red-900">
+
+
+
+ <div class="youtubePlayer">
+   <div class="mt-24 grid grid-cols-1
+   place-items-center "> 
+  <div id="ytplayer" class="ytplayer"></div>
+</div>
+  <button type ="submit" class="btnpressed shareButton2" id="shareLinkButton"></button>
+
+ </section>
+
  <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
   Button
 </button>
-
-
- <section class="youtubePlayer">
-  <div id="ytplayer" class="col-1-of-2 u-margin-bottom-medium ytplayer push"></div>
-  <button type ="submit" class="btnpressed shareButton2" id="shareLinkButton">Host Room</button>
-
- </section>
 <!--Script for handling form query-->
  <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.6/qs.js" integrity="sha512-XV7i2NjAyD/lQ86gjNKipD1AtzgosNaKajboNV6cdYUyW3K2jh1QaDilgMJx+asXxw0vKVpxV18hvBH4cimf7g==" crossorigin="anonymous"></script>
  <!--Script for including sockets-->

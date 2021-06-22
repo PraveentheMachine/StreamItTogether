@@ -1,10 +1,12 @@
 
 /**
- * Script.js is the JavaScript code which 
+ * Script.js is the JavaScript code which is used by hostingpage.html to create the YouTube video
+ *  and provide the host with functionality. 
  * 
  * It is setup into three key components:
  *  "Setup Work" (Initialisations, helper method creation)
- *  "YouTube Logic" ()
+ *  "YouTube Logic" (Handling the YouTube api and its interactions with work done in setup)
+ *  "Socket Logic"
  * 
  * If I was to make an improvement into the near future based on learnings based on the development roles
  * and university study, I would definitely decompose this method into smaller chunks and each component would be its own class.
@@ -12,8 +14,8 @@
 
 
 //---------Setup Work--------------
-// In this portion of the code I do the setup work required
-//
+// In this portion of the code I do the setup work required for the YouTube helper methods 
+
 
 
 //Creating the socket for the Room to be hosted 
@@ -26,7 +28,7 @@ let titleName = document.querySelector("title");
 const formElement = document.querySelector('form');
 
 //Array to store usernames for people in the room
-let userNames = [];
+let usernameList = [];
 
 //Deconstructing the query String 
 const { username, room, roomID } = Qs.parse(location.search, {
@@ -53,33 +55,31 @@ shareButton.addEventListener('click', function(){
   copyToClipboard(window.location.href);
 })
 
-//--------------------------------------------- ------------------------------------------
+//---------YouTube logic--------------
+
+//If the username provided to us by a new room joiner is undefined or empty there are issues  
 if(username == undefined || username=== ''){
-  console.log("ERROR in UserNames");
+  console.log("ERROR");;
 }
 
-userNames.push(username);
-
-
-function processUserName(nameOfVideo){
-  console.log(nameOfVideo);
-  let video = nameOfVideo.split("=");
-
-  return video[1];
-}
-let videoName = processUserName(room);
-console.log(videoName);
-
-
+//If we pass this check it is safe to add the username provided to the use 
+usernameList.push(username);
 
 /**
- * 
- * @param {*} message 
+ * Method which takes a String such as https://www.youtube.com/watch?v=dQw4w9WgXcQ
+ * and gets the video id which is used by the YouTube API to do a request 
+ * @param {*} videoLink the link to the video 
+ * @returns the unique video id
  */
-function output(message) {
-  const div = document.createElement("div");
-  div.classList.add();
+function getYouTubeVideoID(videoLink){
+  console.log("processUserName is called");
+  console.log(videoLink);
+  let video = videoLink.split("=");
+  //would return "dQw4w9WgXcQ" for example
+  return video[1];
 }
+//
+let videoName = getYouTubeVideoID(room);
 
 //Load the IFrame Player API code asynchronously.
 var tag = document.createElement("script");
@@ -89,11 +89,56 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 // Replace the 'ytplayer' element with an <iframe> and
 // YouTube player after the API code downloads.
+
+function getWidth() {
+  return Math.max(
+    document.body.scrollWidth,
+    document.documentElement.scrollWidth,
+    document.body.offsetWidth,
+    document.documentElement.offsetWidth,
+    document.documentElement.clientWidth
+  );
+}
+
+function getHeight() {
+  return Math.max(
+    document.body.scrollHeight,
+    document.documentElement.scrollHeight,
+    document.body.offsetHeight,
+    document.documentElement.offsetHeight,
+    document.documentElement.clientHeight
+  );
+}
+
+console.log('Width:  ' +  getWidth() );
+console.log('Height: ' + getHeight() );
+
+function setHeight(){
+  
+  let height = 0.5 * getHeight();
+  let width = getWidth();
+  if(width >= 0 && width<=640){
+    height = 256
+  }
+  
+  return height.toString()
+}
+
+function setWidth(){
+  let width = 500;
+  if(width >= 0 && width<=640){
+    width = 456
+  }
+  return width.toString();
+}
+//1920 1080
+calculateHeight();
+calculateWidth();
 var player;
 function onYouTubePlayerAPIReady() {
   player = new YT.Player("ytplayer", {
-    height: "720",
-    width: "1280",
+    height: setHeight(),
+    width: setWidth(),
     videoId: videoName,
     events: {
       onReady: onPlayerReady,
@@ -102,6 +147,7 @@ function onYouTubePlayerAPIReady() {
   });
 }
 
+//---------Socket logic--------------
 
 socket.emit("joinRoom", { username, room, videoName,roomID });
 
@@ -142,8 +188,10 @@ function sendInformation(playerStatus) {
     //We are pausing therefore emit, the server handles the fact we only really care about the host
     socket.emit("StoppedVideo", username, roomID);
   } else if (playerStatus == 3) {
+    //Do nothing if we are buffering 
     // color = "#AA00FF"; // buffering = purple
   } else if (playerStatus == 5) {
+    
     // color = "#FF6DOO"; // video cued = orange
   }
 }
