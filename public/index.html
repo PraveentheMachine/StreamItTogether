@@ -8,15 +8,21 @@
       href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
       rel="stylesheet"
     />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap"
+      rel="stylesheet"
+    />
     <link
       href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
-      rel="stylesheet"/>
+      rel="stylesheet"
+    />
 
     <link rel="stylesheet" href="css/icon-font.css" />
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
 
     <link rel="stylesheet" href="css/style.css" />
     <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
@@ -25,90 +31,183 @@
   </head>
 
   <script>
-    function search(query){
-        if(query.slice(0, 7) == "http://"){
-            window.location.href = query
-        }
-        else{
-            window.location.href = "https://www.google.com/search?q=" + query
-        }
+    function search(query) {
+      if (query.slice(0, 7) == "http://") {
+        window.location.href = query;
+      } else {
+        window.location.href = "https://www.google.com/search?q=" + query;
+      }
     }
-</script>
+  </script>
   <body>
-
-    
-
     <section class="bg-gray-100 h-screen">
       <!--Creating a Grid which houses the button + heading text and -->
-        <div class="grid grid-cols-1 md:grid-cols-2 pb-32">
-          <div class="text-center">
-            <h2 class="text-4xl font-extrabold pt-12 md:mt-20 md:mb-6 sm:text-4xl sm:pt-12 md:pt-44 l:pt-64 l:text-5xl">
-              Watch YouTube videos with friends and family online together!
-            </h2>
-            <button class="invisible mb-16 bg-blue-500 md:visible hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-              Get Started 
-            </button>
-            </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 pb-32">
+        <div class="text-center">
+          <h2
+            class="
+              text-4xl
+              font-extrabold
+              pt-12
+              md:mt-20
+              md:mb-6
+              sm:text-4xl
+              sm:pt-12
+              md:pt-44
+              l:pt-64
+              l:text-5xl
+            "
+          >
+            Watch YouTube videos with friends and family online together!
+          </h2>
+          <button
+            class="
+              invisible
+              mb-16
+              bg-blue-500
+              md:visible
+              hover:bg-blue-700
+              text-white
+              font-bold
+              py-2
+              px-4
+              rounded-full
+            "
+          >
+            Get Started
+          </button>
+        </div>
         <div class="">
-            <img class="h-2/4 w-full sm:h-1\/4 md:h-2\/4 md:mt-36 xl:mt-24 " src="img/header__img_2.svg" />
-          </div>
-          </div>
+          <img
+            class="h-2/4 w-full sm:h-1\/4 md:h-2\/4 md:mt-36 xl:mt-24"
+            src="img/header__img_2.svg"
+          />
+        </div>
+      </div>
     </section>
 
-    
+    <!-------------------------------------------------------------->
+
+    <!--Room Form Section -->
 
     <div class="min-h-screen">
-   <section class="" id="form_section">
-    <div class="grid grid-cols-1  text-center" id="container">
-  
-      <div class="form-container sign-in-container bg-pink-400 py-24 px-14">
-        <form action="hostingpage.html" id="form">
-          <h1 class="">Create a Room</h1>
-          <span>Simply add your name and YouTube link to watch</span>
-          <div>
-          <label for="username" class="block text-sm">Username</label>
-          <div>
-          <input type="text" class="w-11/12 border border-gray-300 py-3 px-2" name="username" id="username" placeholder="Host name" required/>
-         </div>
-          <label for="room">Room</label>
-          <input type="text" class="w-11/12 border border-gray-300 py-3 px-2" name="room" id="room" placeholder="YouTube video" required />
-          <input type="hidden" name="roomID" id="roomID" value="123">
-          
-          <!-- <a href="#">Forgot your password?</a> possibly make this into a popup or gif or something -->  
-          <button type ="submit" class="btnpressed" id="btnPressed">Host Room</button>
-        </div>
-        </form>
-      </div>
+      <section class="" id="form_section">
+        <div class="grid grid-cols-1 text-center" id="container">
+          <div
+            class="
+              form-container
+              sign-in-container
+              bg-pink-400
+              pt-8
+              pb-24
+              py-4
+              px-14
+            "
+          >
+            <form action="hostingpage.html" id="form">
+              <h1 class="mt-4 text-2xl font-bold mb-1">Create a Room</h1>
+              <p class="mt-0 font-semibold text:md mb-2">
+                Simply add your name and YouTube link you want to host for your friends
+              </p>
+              <div>
+                <label for="username" class="block text-md pb-2 font-semibold"
+                  >Username</label
+                >
+                <div>
+                  <input
+                    type="text"
+                    class="w-11/12 border border-gray-300 py-3 px-2"
+                    name="username"
+                    id="username"
+                    placeholder="Host name"
+                    required
+                  />
+                </div>
+                <div class="mt-4">
+                  <label for="room" class="block text-md pb-2 font-semibold"
+                    >Room</label
+                  >
+                  <input
+                    type="text"
+                    class="w-11/12 border border-gray-300 py-3 px-2"
+                    name="room"
+                    id="room"
+                    placeholder="YouTube video"
+                    required
+                  />
+                  <input type="hidden" name="roomID" id="roomID" value="123" />
+                </div>
 
-     <div class="bg-purple-400">
-      <form id="form">
-              
-             <h1>Join a Room</h1>
-          <span>Add your name and the link to the room!</span>
-       
-          <label for="username">Username</label>
-          <input type="text" name="username" id="usernameOfJoiner" placeholder="Your name" required/>
-          <label for="room">Room</label>
-          <input type="text" name="room" id="roomToJoin" placeholder="Host Link" required />
-          <button type ="submit" id="joinPreExitingRoom">Join A Room</button>
-
-      
-           </form>
+                <button
+                  class="
+                    mt-4
+                    bg-blue-500
+                    hover:bg-blue-700
+                    text-white
+                    font-bold
+                    py-2
+                    px-4
+                    rounded-full
+                  "
+                  type="submit"
+                  class="btnpressed"
+                  id="btnPressed"
+                >
+                  Host Room
+                </button>
+              </div>
+            </form>
           </div>
-     
- 
+
+          <div
+            class="
+              form-container
+              sign-in-container
+              bg-purple-400
+              pt-8
+              pb-48
+              px-14
+            "
+          >
+            <form id="form">
+              <h1 class="mt-4 text-2xl font-bold mb-1">Join a Room</h1>
+              <p class="mt-0 font-semibold text:md mb-2">Add your name and the link to the room!</p>
+
+              <label class="block text-md pb-2 font-semibold" for="username">Username</label>
+              <input
+                type="text"
+                class="w-11/12 border border-gray-300 py-3 px-2"
+                name="username"
+                id="usernameOfJoiner"
+                placeholder="Your name"
+                required
+              />
+              <label class="block text-md pb-2 font-semibold" for="room">Room</label>
+              <input
+              class="w-11/12 border border-gray-300 py-3 px-2"
+                type="text"
+                name="room"
+                id="roomToJoin"
+                placeholder="Host Link"
+                required
+              />
+              <button class=" mt-4
+              bg-blue-500
+              hover:bg-blue-700
+              text-white
+              font-bold
+              py-2
+              px-4
+              rounded-full" type="submit" id="joinPreExitingRoom">Join A Room</button>
+            </form>
+          </div>
+        </div>
+
+        <footer></footer>
+      </section>
     </div>
-    
-    <footer>
-      
-    </footer>
-   </section>
-  </div>
-    
 
     <footer></footer>
     <script src="js/app.js"></script>
-
-
   </body>
 </html>
