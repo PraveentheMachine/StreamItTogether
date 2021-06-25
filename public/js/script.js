@@ -192,7 +192,7 @@ socket.on("PlayngVideoMsg", (msg) => {
   console.log(
     player.getCurrentTime() < msg.player.playerInfo.currentTime - 0.5
   );
-  if (player.getCurrentTime() < msg.player.playerInfo.currentTime - 0.5) {
+  if (player.getCurrentTime() < msg.player.playerInfo.currentTime - 0.5 || player.getCurrentTime() > msg.player.playerInfo.currentTime + 0.5 ) {
     player.seekTo(msg.player.playerInfo.currentTime, true);
     player.playVideo();
   }
