@@ -39,7 +39,7 @@
       }
     }
   </script>
-  <body>
+  <body class="">
     <section class="bg-gray-100 h-screen">
       <!--Creating a Grid which houses the button + heading text and -->
       <div class="grid grid-cols-1 md:grid-cols-2 pb-32">
@@ -49,13 +49,10 @@
               text-4xl
               font-extrabold
               pt-12
-              md:mt-20
-              md:mb-6
-              sm:text-4xl
-              sm:pt-12
+              md:mt-20 md:mb-6
+              sm:text-4xl sm:pt-12
               md:pt-44
-              l:pt-64
-              l:text-5xl
+              l:pt-64 l:text-5xl
             "
           >
             Watch YouTube videos with friends and family online together!
@@ -91,23 +88,29 @@
     <!--Room Form Section -->
 
     <div class="min-h-screen">
-      <section class="" id="form_section">
-        <div class="grid grid-cols-1 text-center" id="container">
+      <div class="md: pt-24 lg:pt-24 bg-white pb-24" id="form_section">
+        <div
+          class="grid grid-cols-1 gap-4 text-center lg:ml-auto lg:mr-auto lg:mt-auto rounded-lg lg:grid-cols-2 lg:w-4/5 xl:w-8/12 lg:gap-7"
+          id="container"
+        >
           <div
             class="
-              form-container
-              sign-in-container
-              bg-pink-400
-              pt-8
-              pb-24
-              py-4
-              px-14
+            bg-purple-400
+            pt-8
+            pb-24
+            py-4
+            lg:pt-20
+            px-14
+            xl:pb-32
+            xl:rounded-xl
+            
             "
           >
             <form action="hostingpage.html" id="form">
               <h1 class="mt-4 text-2xl font-bold mb-1">Create a Room</h1>
-              <p class="mt-0 font-semibold text:md mb-2">
-                Simply add your name and YouTube link you want to host for your friends
+              <p class="mt-0 font-semibold text: md mb-2">
+                Simply add your name and YouTube link you want to host for your
+                friends
               </p>
               <div>
                 <label for="username" class="block text-md pb-2 font-semibold"
@@ -116,7 +119,7 @@
                 <div>
                   <input
                     type="text"
-                    class="w-11/12 border border-gray-300 py-3 px-2"
+                    class="w-11/12 border border-gray-300 py-3 px-2 md:w-8/12 lg:w-11/12"
                     name="username"
                     id="username"
                     placeholder="Host name"
@@ -129,7 +132,7 @@
                   >
                   <input
                     type="text"
-                    class="w-11/12 border border-gray-300 py-3 px-2"
+                    class="w-11/12 border border-gray-300 py-3 px-2 md:w-8/12 lg:w-11/12"
                     name="room"
                     id="room"
                     placeholder="YouTube video"
@@ -140,14 +143,14 @@
 
                 <button
                   class="
-                    mt-4
-                    bg-blue-500
-                    hover:bg-blue-700
-                    text-white
-                    font-bold
-                    py-2
-                    px-4
-                    rounded-full
+                  mt-4
+                  bg-blue-500
+                  hover:bg-blue-700
+                  text-white
+                  font-bold
+                  py-2
+                  px-4
+                  lg:rounded-full
                   "
                   type="submit"
                   class="btnpressed"
@@ -158,56 +161,80 @@
               </div>
             </form>
           </div>
-
+      <!--Seccond Part of Form For people who want to Join a Room which has been already created
+          They must have a host link -->
           <div
             class="
-              form-container
-              sign-in-container
-              bg-purple-400
-              pt-8
-              pb-48
-              px-14
+            bg-purple-400
+            pt-8
+            pb-24
+            lg:pt-20
+            px-14
+            xl:pb-32
+            xl:rounded-xl
             "
           >
-            <form id="form">
+            <form action="hostingpage.html" id="form">
               <h1 class="mt-4 text-2xl font-bold mb-1">Join a Room</h1>
-              <p class="mt-0 font-semibold text:md mb-2">Add your name and the link to the room!</p>
+              <p class="mt-0 font-semibold text:md mb-2">
+                Simply add your name and YouTube link you want to host for your
+      
+              </p>
+              <div>
+                <label for="username" class="block text-md pb-2 font-semibold"
+                  >Username</label
+                >
+                <div>
+                  <input
+                    type="text"
+                    class="w-11/12 border border-gray-300 py-3 px-2 md:w-8/12 lg:w-11/12"
+                    name="username"
+                    id="usernameOfJoiner"
+                    placeholder="Host name"
+                    required
+                  />
+                </div>
+                <div class="mt-4">
+                  <label for="room" class="block text-md pb-2 font-semibold"
+                    >Room</label
+                  >
+                  <input
+                    type="text"
+                    class="w-11/12 border border-gray-300 py-3 px-2 md:w-8/12 lg:w-11/12"
+                    name="room"
+                    id="roomToJoin"
+                    placeholder="YouTube video"
+                    required
+                  />
+                  <input type="hidden" name="roomID" id="roomID" value="123" />
+                </div>
 
-              <label class="block text-md pb-2 font-semibold" for="username">Username</label>
-              <input
-                type="text"
-                class="w-11/12 border border-gray-300 py-3 px-2"
-                name="username"
-                id="usernameOfJoiner"
-                placeholder="Your name"
-                required
-              />
-              <label class="block text-md pb-2 font-semibold" for="room">Room</label>
-              <input
-              class="w-11/12 border border-gray-300 py-3 px-2"
-                type="text"
-                name="room"
-                id="roomToJoin"
-                placeholder="Host Link"
-                required
-              />
-              <button class=" mt-4
-              bg-blue-500
-              hover:bg-blue-700
-              text-white
-              font-bold
-              py-2
-              px-4
-              rounded-full" type="submit" id="joinPreExitingRoom">Join A Room</button>
+                <button
+                  class="
+                  mt-4
+                  bg-blue-500
+                  hover:bg-blue-700
+                  text-white
+                  font-bold
+                  py-2
+                  px-4
+                  rounded-full
+                  "
+                  type="submit"
+                  class="btnpressed"
+                  id="joinPreExitingRoom"
+                >
+                  Host Room
+                </button>
+              </div>
             </form>
           </div>
+          </div>
         </div>
-
-        <footer></footer>
-      </section>
+      </div>
     </div>
 
-    <footer></footer>
+
     <script src="js/app.js"></script>
   </body>
 </html>
