@@ -48,7 +48,9 @@ function copyToClipboard(text) {
 
 //Adding a listener to the sharebutton which calls the function, copy to clipboard
 //which essentialy notifies someone to share
+console.log("ASDSAD");
 shareButton.addEventListener("click", function () {
+  console.log("SAL");
   copyToClipboard(window.location.href);
 });
 
@@ -134,7 +136,7 @@ function setHeight() {
 
   return height.toString();
 }
-//Do More Testing on breakpoints to make formula 
+//Do More Testing on breakpoints to make formula
 function setWidth() {
   let width = getWidth();
 
@@ -192,7 +194,10 @@ socket.on("PlayngVideoMsg", (msg) => {
   console.log(
     player.getCurrentTime() < msg.player.playerInfo.currentTime - 0.5
   );
-  if (player.getCurrentTime() < msg.player.playerInfo.currentTime - 0.5 || player.getCurrentTime() > msg.player.playerInfo.currentTime + 0.5 ) {
+  if (
+    player.getCurrentTime() < msg.player.playerInfo.currentTime - 0.5 ||
+    player.getCurrentTime() > msg.player.playerInfo.currentTime + 0.5
+  ) {
     player.seekTo(msg.player.playerInfo.currentTime, true);
     player.playVideo();
   }
@@ -223,3 +228,48 @@ function sendInformation(playerStatus) {
 function onPlayerStateChange(event) {
   sendInformation(event.data);
 }
+var resizeTimeout;
+window.addEventListener("resize", function (event) {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(function () {
+    window.location.reload();
+  }, 1500);
+});
+
+// window.addEventListener("resize", function (event) {
+//   clearTimeout(resizeTimeout);
+//   resizeTimeout = setTimeout(function () {
+//     window.location.reload();
+//   }, 1500);
+// });
+
+socket.on("videoChange", (newVideo) => {
+    console.log("WE ARE GETTING HERE");
+    console.log(newVideo);
+    // getting the UUID for the YouTube video based on the link provided 
+    const newVideoLink = newVideo.split("https://www.youtube.com/watch?v=");
+    //The UUID for the new YouTubeVideo
+    const linkID = newVideoLink[1];
+    //getting the previous ID for REGEX replace function
+    let oldLink = window.location.href.split("www.youtube.com%2Fwatch%3Fv%3D");
+    console.log("Other People");
+    console.log(oldLink);
+    let idOld = oldLink[1].split("&roomID=");
+    
+    console.log("HO");
+    console.log(idOld[0]);
+    let newString = "" + window.location.href;
+    newString =  newString.replace(idOld[0],linkID);
+    location.replace(newString);    
+  
+
+  console.log(window.location.href);
+});
+const refreshVideo = document.getElementById("changeVideo");
+refreshVideo.addEventListener("click", function () {
+  var newVideo = prompt("What is the new video?");
+  //We have input
+  if (newVideo !== undefined && newVideo.includes("https://www.youtube.com/watch?v=")) {
+  socket.emit("changeVideo", username, roomID,newVideo);
+}
+});

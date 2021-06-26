@@ -51,7 +51,15 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     io.emit("message", "A user has left the chat");
   });
-
+  socket.on("changeVideo",(player,roomID,video) =>{
+    if(player === hostMap.get(roomID).username){
+      console.log("Change Video message being sent");
+      io.to(roomID).emit(
+        "videoChange",
+        `${video}`
+      ) //all of the clients except
+  }
+});
   //When a video is stopped by the host, pause all videos 
   socket.on("StoppedVideo", (player,roomID) => {
 
