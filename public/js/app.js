@@ -1,6 +1,4 @@
 
-//
-console.log("YOLO");
 
 const submitButton = document.getElementById("btnPressed");
 const videoElement = document.getElementById("room");
@@ -26,6 +24,8 @@ joinPreExitingRoom.addEventListener('click', event => {
 
 
 });
+
+
 
 
 const element = document.querySelector('form');
