@@ -1,46 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width,initial-scale=1.0">
- <meta http-equiv="X-UA-Compatible" content="ie=edge">
- <title>Room</title>
- <link rel="stylesheet" href="styles.css">
- <link rel="shortcut icon" type="image/png" href="img/download.png">
-
-
-<script src="script.js"></script>
-
- </style>
-</head>
-<body class="">
-
-
-
- <div class="youtubePlayer">
-   <div class="mt-24 grid grid-cols-1
-   place-items-center "> 
-  <div id="ytplayer" class="ytplayer"></div>
-</div>
-<div class="text-center flex justify-center" >
-<div class="text-center grid grid-cols-2 gap-4  md:gap-4  lg:gap-14 ">
-
- <button class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" id="shareLinkButton">
-  Share Room Link
-</button>
-<button class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" id="changeVideo">
-  Change Video
-</button>
-</div>
-</div>
-<!--Script for handling form query-->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.6/qs.js" integrity="sha512-XV7i2NjAyD/lQ86gjNKipD1AtzgosNaKajboNV6cdYUyW3K2jh1QaDilgMJx+asXxw0vKVpxV18hvBH4cimf7g==" crossorigin="anonymous"></script>
- <!--Script for including sockets-->
- <script src="/socket.io/socket.io.js"></script>
-  <!--Script for handling room joining-->
- <script src="js/script.js"></script>
- </div>
-
-</body>
-</html> 
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Room</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="shortcut icon" type="image/png" href="img/download.png" />
+    <script src="script.js"></script>
+  </head>
+  <body class="">
+    <!--The Div which holds the YouTube Player which is stored in a grid and centered-->
+    <div class="youtubePlayer">
+      <div class="mt-24 grid grid-cols-1 place-items-center">
+        <div id="ytplayer" class="ytplayer"></div>
+      </div>
+      <div class="text-center flex justify-center">
+        <div class="text-center grid grid-cols-2 gap-4 md:gap-4 lg:gap-14">
+          <button
+            class="
+              mt-4
+              bg-blue-500
+              hover:bg-blue-700
+              text-white
+              font-bold
+              py-2
+              px-4
+              rounded-full
+            "
+            id="shareLinkButton"
+          >
+            Share Room Link
+          </button>
+          <button
+            class="
+              mt-4
+              bg-blue-500
+              hover:bg-blue-700
+              text-white
+              font-bold
+              py-2
+              px-4
+              rounded-full
+            "
+            id="changeVideo"
+          >
+            Change Video
+          </button>
+        </div>
+      </div>
+      <!--Script for handling form query-->
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.6/qs.js"
+        integrity="sha512-XV7i2NjAyD/lQ86gjNKipD1AtzgosNaKajboNV6cdYUyW3K2jh1QaDilgMJx+asXxw0vKVpxV18hvBH4cimf7g=="
+        crossorigin="anonymous"
+      ></script>
+      <!--Script for including sockets-->
+      <script src="/socket.io/socket.io.js"></script>
+      <!--Script for handling room joining-->
+      <script src="js/script.js"></script>
+    </div>
+  </body>
+</html>

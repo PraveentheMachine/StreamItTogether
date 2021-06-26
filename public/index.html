@@ -32,6 +32,7 @@
     <title>StreamItTogether</title>
   </head>
 
+<!--Script for form handling which is used to add the current link into a HTML link -->
   <script>
     function search(query) {
       if (query.slice(0, 7) == "http://") {
@@ -41,7 +42,10 @@
       }
     }
   </script>
+
+
   <body class="">
+
     <section class="bg-gray-100 h-screen">
       <!--Creating a Grid which houses the button + heading text and -->
       <div class="grid grid-cols-1 md:grid-cols-2 pb-32">
@@ -60,6 +64,7 @@
             Watch YouTube videos with friends and family online together!
           </h2>
           <button
+          onClick="document.getElementById('form').scrollIntoView();"
             class="
               invisible
               mb-16
@@ -85,9 +90,12 @@
       </div>
     </section>
 
-    <!-------------------------------------------------------------->
+    <!---------------------------End of Section 1----------------------------------->
 
-    <!--Room Form Section -->
+    <!---------------------------Start of Section 2----------------------------------->
+
+    <!--Room Form Section takes up the whole screen which if small-medium layout is a grid of 1, large 
+        to extra large is a grid of 2 -->
 
     <div class="min-h-screen">
       <div class="md: pt-24 lg:pt-24 bg-white pb-24" id="form_section">
@@ -97,7 +105,7 @@
         >
           <div
             class="
-            bg-purple-400
+            bg-blue-200
             pt-8
             pb-24
             py-4
@@ -108,10 +116,11 @@
             
             "
           >
+          <!--First half of Form used for creating a new Room for a new host-->
             <form action="hostingpage.html" id="form">
               <h1 class="mt-4 text-2xl font-bold mb-1">Create a Room</h1>
               <p class="mt-0 font-semibold text: md mb-2">
-                Simply add your name and YouTube link you want to host for your
+                Add your name and YouTube link you want to host for your
                 friends
               </p>
               <div>
@@ -167,7 +176,7 @@
           They must have a host link -->
           <div
             class="
-            bg-purple-400
+            bg-purple-200
             pt-8
             pb-24
             lg:pt-20
@@ -179,7 +188,8 @@
             <form action="hostingpage.html" id="form">
               <h1 class="mt-4 text-2xl font-bold mb-1">Join a Room</h1>
               <p class="mt-0 font-semibold text:md mb-2">
-                Simply add your name and YouTube link you want to host for your
+                Add your name and the link from the host to join your
+                friends
       
               </p>
               <div>
@@ -236,7 +246,7 @@
       </div>
     </div>
 
-
-    <script src="js/app.js"></script>
+    <!--Used and called to handle the logic for if we are a host what we want to do and if we are joiner what we want to do-->
+    <script src="js/roomlogic.js"></script>
   </body>
 </html>

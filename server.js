@@ -1,4 +1,4 @@
-//Entry point
+//Our server. These are required imports and modules used by the server to setup the Rooms
 const path = require("path");
 const express = require("express"); //Importing Express Module
 const http = require("http"); //used by Express under the hood to
@@ -10,85 +10,79 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 app.use(express.static(path.join(__dirname, "public")));
+//If we are testing locally use 3000, if out streamed on Glitch use the environments port!
 const PORT = 3000 || process.env.PORT;
 
+//Create a Map which maps the host to their room iD
 let hostMap = new Map();
+//Create a Map with the Room and all of the Room users
 let roomToUsersInRoomMap = new Map();
 
 server.listen(PORT, () => console.log(`Server running on Port ${PORT}`));
 
 //Run when a client connects
 io.on("connection", (socket) => {
+  //If we receive a joinRoom message from the client
   socket.on("joinRoom", ({ username, room, videoName, roomID }) => {
+    //Check if the Room is a new room by determining its size
     let booleanCheck = getRoomSize(roomID) === 0 ? true : false;
+    //Call method in utils/userjs which handles room logic
     const user = userJoin(socket.id, username, roomID, booleanCheck);
-    if(!roomToUsersInRoomMap.has(roomID)){
+    //If we do not have the room with this ID, we must have a new room, therefore setup new room
+    if (!roomToUsersInRoomMap.has(roomID)) {
+      //Create a new users []
       let users = [];
+      //add the current user to this room member array
       users.push(user);
-      console.log("ADDING to a new room " + user);
-      roomToUsersInRoomMap.set(roomID,users);
+      //Add it to the map which maps roomID to users in room
+      roomToUsersInRoomMap.set(roomID, users);
     }
-    else{
+    //We have a room with this unique ID therefore we must add them to the room already created
+    //this user is not the host 
+    else {
       let addUsers = roomToUsersInRoomMap.get(roomID);
       addUsers.push(user);
-      console.log(roomToUsersInRoomMap);
-      console.log("ADDING to a old room " + user);
-      roomToUsersInRoomMap.set(roomID,addUsers);
-      console.log(roomToUsersInRoomMap);
+      roomToUsersInRoomMap.set(roomID, addUsers);
     }
+    //If this is a new Room we must make this user a Host as it is a room created by them 
     if (booleanCheck) {
-     let host = user;
+      let host = user;
       hostMap.set(roomID, user);
       console.log("HOST CREATED with username:  " + host.username);
     }
-    // socket.emit("message", `Welcome to ${host.username}'s Room`);
+
     socket.join(user.roomID);
-    socket.broadcast.to(user.roomID).emit("message", `${username} has joined the chat`);
+    socket.broadcast
+      .to(user.roomID)
+      .emit("message", `${username} has joined the chat`);
   });
 
-
-  //todo fix this e.g fully implement 
+  //todo fully implement this, default fix is to create a new room if it is exceeds >10000 users. 
   socket.on("disconnect", () => {
     io.emit("message", "A user has left the chat");
   });
-  socket.on("changeVideo",(player,roomID,video) =>{
-    if(player === hostMap.get(roomID).username){
-      console.log("Change Video message being sent");
-      io.to(roomID).emit(
-        "videoChange",
-        `${video}`
-      ) //all of the clients except
-  }
-});
-  //When a video is stopped by the host, pause all videos 
-  socket.on("StoppedVideo", (player,roomID) => {
-
-
-    if(player === hostMap.get(roomID).username){
-      console.log("PAUSE MESSAGE BEING SENT");
-      console.log(roomToUsersInRoomMap.get(roomID));
-    // if (player === host.username) {
+  //If we receive a change Video request
+  socket.on("changeVideo", (player, roomID, video) => {
+    //Check if it is from the host
+    if (player === hostMap.get(roomID).username) {
+      io.to(roomID).emit("videoChange", `${video}`); 
+    }
+  });
+  //When a video is stopped by the host, pause all videos
+  socket.on("StoppedVideo", (player, roomID) => {
+    if (player === hostMap.get(roomID).username) {
       io.to(roomID).emit(
         "pauseMessage",
         `${hostMap.get(roomID).username} has Stopped the Video`
-      ); //all of the clients except
-   // }
-  }
-    // io.emit("pauseMessage", formatVideo(player, player.playerInfo.currentTime));
+      );
+    }
   });
 
-  socket.on("PlayingVideo", ({ username, player,roomID }) => {
-   
-    // console.log(roomID);
-    // console.log(player.username);ç
-    // console.log("Playing Video");
-    // console.log(username);
-    if(username === hostMap.get(roomID).username){
+  socket.on("PlayingVideo", ({ username, player, roomID }) => {
+    if (username === hostMap.get(roomID).username) {
       console.log(roomToUsersInRoomMap.get(roomID));
       console.log("WATCHING");
-      // console.log(`${host.username} is playing`);
-      //Message sending the information regarding player 
-      io.to(roomID).emit("PlayngVideoMsg", { username, player}); 
+      io.to(roomID).emit("PlayngVideoMsg", { username, player });
     }
   });
 
