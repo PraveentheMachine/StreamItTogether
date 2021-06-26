@@ -5,8 +5,6 @@ function userJoin(id, username, roomID,isHost){
   id,username,roomID,isHost
  };
  users.push(user);
-console.log("USER PUSHED");
-console.log(user.roomID);
  return user;
 }
 

@@ -56,6 +56,15 @@ shareButton.addEventListener("click", function () {
 
 //---------YouTube logic--------------
 
+//If we resize the browser we want to call a Reload and then refresh the page. 
+var resizeTimeout;
+window.addEventListener("resize", function (event) {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(function () {
+    window.location.reload();
+  }, 1500);
+});
+
 //If the username provided to us by a new room joiner is undefined or empty there are issues
 if (username == undefined || username === "") {
   console.log("ERROR");
@@ -86,9 +95,12 @@ tag.src = "https://www.youtube.com/player_api";
 var firstScriptTag = document.getElementsByTagName("script")[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-// Replace the 'ytplayer' element with an <iframe> and
-// YouTube player after the API code downloads.
 
+/**
+ * Finds the width of the screen based on checking all the possible values and returning the max
+ * value which coresponds to the width of the screen 
+ * @returns the current width of the screen
+ */
 function getWidth() {
   return Math.max(
     document.body.scrollWidth,
@@ -99,6 +111,11 @@ function getWidth() {
   );
 }
 
+/**
+ * Finds the height of the screen based on checking all the possible values and returning the max
+ * value which coresponds to the height of the screen 
+ * @returns the current height of the screen
+ */
 function getHeight() {
   return Math.max(
     document.body.scrollHeight,
@@ -109,9 +126,10 @@ function getHeight() {
   );
 }
 
-console.log("Width:  " + getWidth());
-console.log("Height: " + getHeight());
-
+/**
+ * Method used to determine the height of the YouTube Player based on the width of the screen
+ * @returns the Height of the Screen as a String used by the YouTube API
+ */
 function setHeight() {
   let height = 0.5 * getHeight();
   let width = getWidth();
@@ -136,8 +154,11 @@ function setHeight() {
 
   return height.toString();
 }
-//Do More Testing on breakpoints to make formula
-function setWidth() {
+/**
+ * Method used to determine the Width of the YouTube Player based on the width of the screen
+ * @returns the Width of the Screen as a String used by the YouTube API
+ */
+  function setWidth() {
   let width = getWidth();
 
   if (width >= 0 && width < 768) {
@@ -158,9 +179,11 @@ function setWidth() {
   console.log(width + "Widther");
   return width.toString();
 }
-//1920 1080
-// calculateHeight();
-// calculateWidth();
+
+
+//This is the YouTube API setup
+// Replace the 'ytplayer' element with an <iframe> and
+// YouTube player after the API code downloads.
 var player;
 function onYouTubePlayerAPIReady() {
   player = new YT.Player("ytplayer", {
@@ -176,37 +199,50 @@ function onYouTubePlayerAPIReady() {
 
 //---------Socket logic--------------
 
+//Emit a JoinRoom message to the server
 socket.emit("joinRoom", { username, room, videoName, roomID });
-
+//Emit a hostPaused message to the server
 socket.emit("hostPausedVideo", { username, room, roomID });
+
 
 socket.on("message", (message) => {});
 
+/**
+ * If we have received a pause message 
+ */
 socket.on("pauseMessage", (msg) => {
   player.pauseVideo();
 });
 
-//Socket for handling video messaging
+//Socket for handling video playing
 socket.on("PlayngVideoMsg", (msg) => {
-  console.log(player.getCurrentTime());
-  console.log(msg.player.playerInfo.currentTime);
-  console.log(msg.player.playerInfo.currentTime - 0.5);
-  console.log(
-    player.getCurrentTime() < msg.player.playerInfo.currentTime - 0.5
-  );
+  //If the current time difference between the host and a player is +-0.5 drag the players
+  //value to the hosts video time
   if (
     player.getCurrentTime() < msg.player.playerInfo.currentTime - 0.5 ||
     player.getCurrentTime() > msg.player.playerInfo.currentTime + 0.5
   ) {
+    //go to this time and playVideo
     player.seekTo(msg.player.playerInfo.currentTime, true);
     player.playVideo();
   }
+  //unique quirk of the YouTube API have to playVideo twice to make sure it actually does what is needed
   player.playVideo();
 });
 
+/**
+ * I could do something in the future with this essentially this is a method called as soon as the player loads
+ * @param {*} event 
+ */
 function onPlayerReady(event) {
-  //todo do something for this
 }
+
+/**
+ * Very important method used by my socket and YouTube api. It acts as a link, essentially based on the playerStatus
+ * I must emit a certain message to the server so that it can broadcast it to everyone in the room.
+ * For example if the playerStatus == 1 then we are "playing" as the host and this should be known to everyone in the room
+ * @param {*} playerStatus the status of the YouTube player. 
+ */
 function sendInformation(playerStatus) {
   if (playerStatus == -1) {
   } else if (playerStatus == 0) {
@@ -220,7 +256,6 @@ function sendInformation(playerStatus) {
     //Do nothing if we are buffering
     // color = "#AA00FF"; // buffering = purple
   } else if (playerStatus == 5) {
-    // color = "#FF6DOO"; // video cued = orange
   }
 }
 
@@ -228,48 +263,44 @@ function sendInformation(playerStatus) {
 function onPlayerStateChange(event) {
   sendInformation(event.data);
 }
-var resizeTimeout;
-window.addEventListener("resize", function (event) {
-  clearTimeout(resizeTimeout);
-  resizeTimeout = setTimeout(function () {
-    window.location.reload();
-  }, 1500);
-});
 
-// window.addEventListener("resize", function (event) {
-//   clearTimeout(resizeTimeout);
-//   resizeTimeout = setTimeout(function () {
-//     window.location.reload();
-//   }, 1500);
-// });
 
+
+/**
+ * If we receive a videoChange method from the server we must use the "newVideo" parameter
+ * to refresh the video and change the video used by the YouTube API. This must be done for everyone
+ * in the room. 
+ */
 socket.on("videoChange", (newVideo) => {
-    console.log("WE ARE GETTING HERE");
-    console.log(newVideo);
-    // getting the UUID for the YouTube video based on the link provided 
-    const newVideoLink = newVideo.split("https://www.youtube.com/watch?v=");
-    //The UUID for the new YouTubeVideo
-    const linkID = newVideoLink[1];
-    //getting the previous ID for REGEX replace function
-    let oldLink = window.location.href.split("www.youtube.com%2Fwatch%3Fv%3D");
-    console.log("Other People");
-    console.log(oldLink);
-    let idOld = oldLink[1].split("&roomID=");
-    
-    console.log("HO");
-    console.log(idOld[0]);
-    let newString = "" + window.location.href;
-    newString =  newString.replace(idOld[0],linkID);
-    location.replace(newString);    
-  
+
+  // getting the UUID for the YouTube video based on the link provided
+  const newVideoLink = newVideo.split("https://www.youtube.com/watch?v=");
+  //The UUID for the new YouTubeVideo
+  const linkID = newVideoLink[1];
+  //getting the previous ID for REGEX replace function
+  let oldLink = window.location.href.split("www.youtube.com%2Fwatch%3Fv%3D");
+  console.log("Other People");
+  let idOld = oldLink[1].split("&roomID=");
+  let newString = "" + window.location.href;
+  newString = newString.replace(idOld[0], linkID);
+  location.replace(newString);
 
   console.log(window.location.href);
 });
+
+/**
+ * If we are changing the video we must get the YouTube link of the new Video and send this to the server
+ * to determine if we are at a host and if we are then we must change the video after emiting the socket. 
+ */
 const refreshVideo = document.getElementById("changeVideo");
 refreshVideo.addEventListener("click", function () {
   var newVideo = prompt("What is the new video?");
   //We have input
-  if (newVideo !== undefined && newVideo.includes("https://www.youtube.com/watch?v=")) {
-  socket.emit("changeVideo", username, roomID,newVideo);
-}
+  if (
+    newVideo !== undefined &&
+    newVideo.includes("https://www.youtube.com/watch?v=")
+  ) {
+    socket.emit("changeVideo", username, roomID, newVideo);
+  }
 });
+
