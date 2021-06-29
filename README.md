@@ -1,7 +1,9 @@
 # YouTubeLiveViewer
-Personal project in which users are able to watch YouTube videos together with friends, live!
+Personal project in which users are able to watch YouTube videos together with friends, live! 
 
-#### Welcoming Screen
+Visit https://streamittogether.glitch.me/
+
+#### Home Screen
 ![Img1](https://github.com/PraveentheMachine/StreamItTogether/blob/master/public/img/homepage.png)
 <br>
 
